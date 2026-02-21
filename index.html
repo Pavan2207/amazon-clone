@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pavan Fashion - India's Best Shopping App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-responsive.css">
+    <link rel="stylesheet" href="styles-responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="fashion-icon">🛍️</div>
+            <h2>Pavan Fashion</h2>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fashion-header">
+        <div class="header-main">
+            <div class="logo" onclick="showPage('home')">
+                <div class="logo-icon-wrapper">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="brand-name">Pavan</span>
+                    <span class="brand-tagline">FASHION</span>
+                </div>
+            </div>
+            
+            <div class="search-bar">
+                <div class="search-wrapper">
+                    <select class="search-category">
+                        <option>All</option>
+                        <option>Women</option>
+                        <option>Men</option>
+                        <option>Kids</option>
+                        <option>Electronics</option>
+                        <option>Home</option>
+                    </select>
+                    <input type="text" class="search-input" placeholder="Search for products, brands and more..." id="searchInput">
+                    <button class="search-btn" onclick="searchProducts()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="nav-item wishlist" onclick="showToast('Wishlist feature coming soon!')">
+                    <i class="far fa-heart"></i>
+                    <span>Wishlist</span>
+                </div>
+                <div class="nav-item cart" onclick="showPage('cart')">
+                    <div class="cart-icon-wrapper">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                    <span class="cart-text">Bag</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Categories Bar -->
+        <div class="categories-bar">
+            <div class="categories-scroll">
+                <div class="category-pill active" onclick="filterCategory('all')">
+                    <i class="fas fa-th-large"></i> All
+                </div>
+                <div class="category-pill" onclick="filterCategory('women')">
+                    <i class="fas fa-female"></i> Women
+                </div>
+                <div class="category-pill" onclick="filterCategory('men')">
+                    <i class="fas fa-male"></i> Men
+                </div>
+                <div class="category-pill" onclick="filterCategory('kids')">
+                    <i class="fas fa-baby"></i> Kids
+                </div>
+                <div class="category-pill" onclick="filterCategory('electronics')">
+                    <i class="fas fa-mobile-alt"></i> Electronics
+                </div>
+                <div class="category-pill" onclick="filterCategory('home')">
+                    <i class="fas fa-couch"></i> Home
+                </div>
+                <div class="category-pill" onclick="filterCategory('beauty')">
+                    <i class="fas fa-spa"></i> Beauty
+                </div>
+                <div class="category-pill" onclick="filterCategory('sports')">
+                    <i class="fas fa-running"></i> Sports
+                </div>
+                <div class="category-pill" onclick="showPage('signin')">
+                    <i class="fas fa-user"></i> Sign In
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Added to cart!</span>
+    </div>
+
+    <!-- Home Page -->
+    <main id="home-page" class="page">
+        <!-- Hero Banner -->
+        <section class="hero-section">
+            <div class="hero-slider" id="heroSlider">
+                <div class="hero-slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="hero-content">
+                        <div class="hero-badge">NEW ARRIVALS</div>
+                        <h1>Summer Collection 2024</h1>
+                        <p>Up to 50% off on Women's Fashion</p>
+                        <button class="hero-btn" onclick="filterCategory('women')">Shop Now <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400" alt="Summer Collection">
+                    </div>
+                </div>
+                <div class="hero-slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="hero-content">
+                        <div class="hero-badge">FLAT 40% OFF</div>
+                        <h1>Men's Formal Wear</h1>
+                        <p>Elegant styles for every occasion</p>
+                        <button class="hero-btn" onclick="filterCategory('men')">Explore Now <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400" alt="Men's Fashion">
+                    </div>
+                </div>
+                <div class="hero-slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="hero-content">
+                        <div class="hero-badge">ELECTRONICS SALE</div>
+                        <h1>Tech Mega Sale</h1>
+                        <p>Biggest savings on gadgets</p>
+                        <button class="hero-btn" onclick="filterCategory('electronics')">Grab Deals <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400" alt="Electronics">
+                    </div>
+                </div>
+                <div class="hero-slide" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <div class="hero-content">
+                        <div class="hero-badge">KIDS ZONE</div>
+                        <h1>Fun & Fashion</h1>
+                        <p>Comfy styles for little ones</p>
+                        <button class="hero-btn" onclick="filterCategory('kids')">Shop Kids <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=400" alt="Kids Fashion">
+                    </div>
+                </div>
+            </div>
+            <div class="hero-nav">
+                <span class="hero-dot active" onclick="goToSlide(0)"></span>
+                <span class="hero-dot" onclick="goToSlide(1)"></span>
+                <span class="hero-dot" onclick="goToSlide(2)"></span>
+                <span class="hero-dot" onclick="goToSlide(3)"></span>
+            </div>
+        </section>
+
+        <!-- Flash Sale Banner -->
+        <section class="flash-sale">
+            <div class="flash-content">
+                <div class="flash-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="flash-text">
+                    <h3>Flash Sale</h3>
+                    <p>Ends in <span id="flashTimer">02:45:30</span></p>
+                </div>
+            </div>
+            <div class="flash-products" id="flashProducts">
+                <!-- Flash sale products will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Categories Grid -->
+        <section class="categories-section">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterCategory('women')">
+                    <div class="category-img">
+                        <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300" alt="Women">
+                    </div>
+                    <h3>Women</h3>
+                    <p>Ethnic, Western & More</p>
+                </div>
+                <div class="category-card" onclick="filterCategory('men')">
+                    <div class="category-img">
+                        <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=300" alt="Men">
+                    </div>
+                    <h3>Men</h3>
+                    <p>Shirts, Jeans & More</p>
+                </div>
+                <div class="category-card" onclick="filterCategory('kids')">
+                    <div class="category-img">
+                        <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=300" alt="Kids">
+                    </div>
+                    <h3>Kids</h3>
+                    <p>Clothing & Toys</p>
+                </div>
+                <div class="category-card" onclick="filterCategory('beauty')">
+                    <div class="category-img">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300" alt="Beauty">
+                    </div>
+                    <h3>Beauty</h3>
+                    <p>Makeup & Skincare</p>
+                </div>
+                <div class="category-card" onclick="filterCategory('electronics')">
+                    <div class="category-img">
+                        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=300" alt="Electronics">
+                    </div>
+                    <h3>Electronics</h3>
+                    <p>Gadgets & Devices</p>
+                </div>
+                <div class="category-card" onclick="filterCategory('home')">
+                    <div class="category-img">
+                        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=300" alt="Home">
+                    </div>
+                    <h3>Home</h3>
+                    <p>Decor & Furniture</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <div class="section-header">
+                <h2 class="section-title" id="productsTitle">Trending Products</h2>
+                <div class="view-all" onclick="filterCategory('all')">View All <i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- Banner Section -->
+        <section class="banner-section">
+            <div class="banner-card" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                <div class="banner-content">
+                    <h2>Women's Corner</h2>
+                    <p>New arrivals in ethnic wear</p>
+                    <button onclick="filterCategory('women')">Shop Now</button>
+                </div>
+                <div class="banner-image">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=300" alt="Women">
+                </div>
+            </div>
+            <div class="banner-card" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
+                <div class="banner-content">
+                    <h2>Men's Collection</h2>
+                    <p>Premium formal wear</p>
+                    <button onclick="filterCategory('men')">Shop Now</button>
+                </div>
+                <div class="banner-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300" alt="Men">
+                </div>
+            </div>
+            <div class="banner-card" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">
+                <div class="banner-content">
+                    <h2>Beauty Essentials</h2>
+                    <p>Top brands at best prices</p>
+                    <button onclick="filterCategory('beauty')">Shop Now</button>
+                </div>
+                <div class="banner-image">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300" alt="Beauty">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h4>Free Shipping</h4>
+                <p>On orders above ₹499</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-undo"></i>
+                </div>
+                <h4>Easy Returns</h4>
+                <p>30-day return policy</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>Secure Payment</h4>
+                <p>100% secure checkout</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h4>24/7 Support</h4>
+                <p>Dedicated support</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Detail Page -->
+    <main id="product-page" class="page" style="display: none;">
+        <div class="breadcrumb">
+            <span onclick="showPage('home')">Home</span> 
+            <i class="fas fa-chevron-right"></i> 
+            <span id="productBreadcrumb">Product</span>
+        </div>
+        <div class="product-detail" id="productDetail">
+            <!-- Product detail will be dynamically inserted -->
+        </div>
+    </main>
+
+    <!-- Cart Page -->
+    <main id="cart-page" class="page" style="display: none;">
+        <div class="cart-container">
+            <h1 class="cart-title">
+                <i class="fas fa-shopping-bag"></i> My Bag 
+                <span class="cart-item-count">(<span id="cartItemCount">0</span> items)</span>
+            </h1>
+            <div class="cart-content">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be dynamically inserted -->
+                </div>
+                <div class="cart-summary" id="cartSummary">
+                    <div class="summary-card">
+                        <h3>Price Details</h3>
+                        <div class="summary-row">
+                            <span>Bag Total</span>
+                            <span>₹<span id="cartSubtotal">0</span></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery</span>
+                            <span class="free">FREE</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>₹<span id="cartTotal">0</span></span>
+                        </div>
+                        <button class="checkout-btn" onclick="proceedToCheckout()">
+                            <i class="fas fa-lock"></i> Proceed to Buy
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-cart" id="emptyCart" style="display: none;">
+                <div class="empty-cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <h2>Your bag is empty!</h2>
+                <p>Looks like you haven't added anything yet.</p>
+                <button onclick="showPage('home')">Start Shopping</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sign In Page -->
+    <main id="signin-page" class="page" style="display: none;">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Pavan</span>Fashion
+                </div>
+                <div class="auth-box">
+                    <h1>Welcome Back</h1>
+                    <p class="auth-subtitle">Sign in to continue shopping</p>
+                    <form onsubmit="handleSignIn(event)">
+                        <div class="input-group">
+                            <input type="text" placeholder="Email / Phone Number" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <button type="submit" class="auth-btn">Continue</button>
+                    </form>
+                    <div class="social-login">
+                        <p>Or continue with</p>
+                        <div class="social-buttons">
+                            <button class="social-btn google" onclick="showToast('Google login coming soon!')">
+                                <i class="fab fa-google"></i> Google
+                            </button>
+                            <button class="social-btn facebook" onclick="showToast('Facebook login coming soon!')">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="auth-footer">
+                    <p>New to Pavan Fashion? <a href="#" onclick="showPage('signup')">Create Account</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sign Up Page -->
+    <main id="signup-page" class="page" style="display: none;">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Pavan</span>Fashion
+                </div>
+                <div class="auth-box">
+                    <h1>Create Account</h1>
+                    <p class="auth-subtitle">Join us and start shopping</p>
+                    <form onsubmit="handleSignUp(event)">
+                        <div class="input-group">
+                            <input type="text" placeholder="Full Name" required>
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" placeholder="Email Address" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="input-group">
+                            <input type="tel" placeholder="Phone Number" required>
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" placeholder="Create Password" required>
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <button type="submit" class="auth-btn">Create Account</button>
+                    </form>
+                </div>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" onclick="showPage('signin')">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Checkout Page -->
+    <main id="checkout-page" class="page" style="display: none;">
+        <div class="checkout-container">
+            <div class="checkout-left">
+                <h2><i class="fas fa-map-marker-alt"></i> Delivery Address</h2>
+                <div class="address-card">
+                    <input type="radio" name="address" checked>
+                    <div class="address-details">
+                        <p><strong>Home</strong> <span class="default-badge">Default</span></p>
+                        <p>Pavan Kumar</p>
+                        <p>123 Main Street, Apt 4B</p>
+                        <p>Bengaluru, Karnataka 560001</p>
+                        <p>📞 9876543210</p>
+                    </div>
+                </div>
+                <button class="add-address-btn"><i class="fas fa-plus"></i> Add New Address</button>
+                
+                <h2><i class="fas fa-credit-card"></i> Payment Method</h2>
+                <div class="payment-options">
+                    <label class="payment-option">
+                        <input type="radio" name="payment" checked>
+                        <i class="fas fa-credit-card"></i>
+                        <span>Credit / Debit Card</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment">
+                        <i class="fas fa-wallet"></i>
+                        <span>UPI / Paytm</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Cash on Delivery</span>
+                    </label>
+                </div>
+            </div>
+            <div class="checkout-right">
+                <div class="order-summary">
+                    <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+                    <div id="checkoutItems">
+                        <!-- Checkout items will be inserted here -->
+                    </div>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>₹<span id="checkoutSubtotal">0</span></span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span class="free">FREE</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span>₹<span id="checkoutTotal">0</span></span>
+                    </div>
+                    <button class="place-order-btn" onclick="placeOrder()">
+                        <i class="fas fa-lock"></i> Place Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Order Success Page -->
+    <main id="success-page" class="page" style="display: none;">
+        <div class="success-container">
+            <div class="success-animation">
+                <div class="success-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+            <h1>Order Placed Successfully!</h1>
+            <p>Thank you for your order. Your order has been placed and will be delivered soon.</p>
+            <div class="order-id">
+                <i class="fas fa-receipt"></i>
+                Order ID: <span id="orderId">PF-2024-XXXXX</span>
+            </div>
+            <div class="success-actions">
+                <button onclick="showPage('home')">Continue Shopping</button>
+                <button class="secondary" onclick="showToast('Order tracking coming soon!')">Track Order</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="fashion-footer">
+        <div class="footer-main">
+            <div class="footer-section">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#">Women</a></li>
+                    <li><a href="#">Men</a></li>
+                    <li><a href="#">Kids</a></li>
+                    <li><a href="#">Beauty</a></li>
+                    <li><a href="#">Electronics</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Help</h4>
+                <ul>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="app-download">
+                    <p>Download App</p>
+                    <div class="app-buttons">
+                        <button><i class="fab fa-google-play"></i> Google Play</button>
+                        <button><i class="fab fa-apple"></i> App Store</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Pavan Fashion. All rights reserved. | Made with ❤️ in India</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
